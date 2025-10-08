@@ -5,12 +5,14 @@ import './index.css'
 import App from './App.jsx'
 import AboutUs from './pages/About-us.jsx'
 import Contacts from './pages/Contacts.jsx'
+import Clubs from './pages/clubs.jsx'
 import Academics from './pages/Academics.jsx'
 const router = createBrowserRouter(
   [
   { path: "/", element: <App /> },
   { path: "/contacts", element: <Contacts /> },
   { path: "/academics", element: <Academics /> },
+  { path: "/clubs", element: <Clubs /> },
   { path: "/about-us", element: <AboutUs /> }
   ]
 )
