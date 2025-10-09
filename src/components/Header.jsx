@@ -69,7 +69,7 @@ const Header = () => {
           Contacts
         </Link>
         <Link to="/clubs" className="hover:underline">
-          Clubs
+          Clubs and Societies
         </Link>
       </div>
 

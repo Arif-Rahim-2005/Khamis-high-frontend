@@ -41,8 +41,8 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-semibold mb-3">Contact</h4>
             <p className="text-sm">📍 Khamis, Mombasa</p>
-            <p className="text-sm">📧 info@khamishigh.ac.ke</p>
-            <p className="text-sm">📞 +254 7XX XXX XXX</p>
+            <p className="text-sm">📧 Khamishigh@yahoo.com</p>
+            <p className="text-sm">📞 +254 0203590180</p>
           </div>
         </div>
         <p className="text-center text-xs text-gray-500 mt-6">

@@ -50,7 +50,7 @@ function App() {
             Contacts
           </Link>
           <Link to="/clubs" className="hover:underline">
-            Clubs
+            Clubs and Societies
           </Link>
         </div>
 
@@ -166,9 +166,9 @@ function App() {
           <div>
             {/* Info Cards Section */}
             <section className=" py-16 px-6 md:px-12 text-lg">
-              <div className="grid grid-cols-3 gap-20 max-w-6xl mx-auto">
+              <div className="grid grid-cols-3 gap-20 max-w-6xl mx-auto ">
                 {/* Card 1 */}
-                <div className="flex flex-col md:flex-col items-center shadow-lg overflow-hidden max-h-fit">
+                <div className="flex flex-col md:flex-col items-center shadow-lg overflow-hidden max-h-fit transition-all hover:scale-[1.02] duration-300 ease-in-out">
                   <div className="flex flex-col md:flex-column items-center shadow-lg overflow-hidden">
                     <img
                       src="./Photos/academics.jpg"
@@ -189,7 +189,7 @@ function App() {
                 </div>
 
                 {/* Card 2 */}
-                <div className="flex flex-col md:flex-column items-center shadow-lg overflow-hidden max-h-fit  ">
+                <div className="flex flex-col md:flex-column items-center shadow-lg overflow-hidden max-h-fit transition-all hover:scale-[1.02] duration-300 ease-in-out ">
                   <img
                     src="./Photos/equipment.jpg"
                     alt="Facilities"
@@ -207,7 +207,7 @@ function App() {
                 </div>
 
                 {/* Card 3 */}
-                <div className="flex flex-col md:flex-col items-center shadow-lg overflow-hidden max-h-fit ">
+                <div className="flex flex-col md:flex-col items-center shadow-lg overflow-hidden max-h-fit transition-all hover:scale-[1.02] duration-300 ease-in-out">
                   <img
                     src="./Photos/Slideshow/image3.png"
                     alt="Mentorship"
@@ -231,79 +231,6 @@ function App() {
       {/* FOOTER */}
       <Footer />
     </>
-    // <>
-    //   <div className="min-h-screen bg-[#e0dac8]">
-    //     <nav className="flex flex-row bg-green-700 text-white p-4 justify-between items-center">
-    //       <div className="flex-1/3 flex flex-row gap-1.5">
-    //         <div className="w-16 h-16 flex justify-center items-center">
-    //           <img src="./Photos/image.png" alt="Khamis High badge" />
-    //         </div>
-    //         <div className="flex flex-col justify-center items-start text-3xl font-bold">
-    //           <h3>Khamis High School</h3>
-    //         </div>
-    //       </div>
-    //       <button
-    //         className="md:hidden m-1.5"
-    //         onClick={() => setIsOpen(!isOpen)}
-    //       >
-    //         ☰
-    //       </button>
-    //       <div className="hidden md:flex flex-row gap-12 text-2xl font-semibold">
-    //         <div>
-    //           <Link to="/academics">
-    //             <p>Academics</p>
-    //           </Link>
-    //         </div>
-    //         <div>
-    //           <Link to="/about-us">
-    //             <p>About us</p>
-    //           </Link>
-    //         </div>
-    //         <div>
-    //           <Link to="/contacts">
-    //             <p>Contacts</p>
-    //           </Link>
-    //         </div>
-    //         <div>
-    //           <Link to="/clubs">
-    //             <p>CLubs and Societies</p>
-    //           </Link>
-    //         </div>
-    //         {/* <div>
-    //         <p>more...</p>
-    //       </div> */}
-    //       </div>
-    //       <div>
-    //         {isOpen && (
-    //           <div className="md:hidden absolute right-0 mt-10 w-50 bg-green-700 border border-white rounded-s-md shadow-lg z-50">
-    //             <div className="mt-2 border-b-1 px-4">
-    //               <Link to="/academics">
-    //                 <p>Academics</p>
-    //               </Link>
-    //             </div>
-    //             <div className="mt-2 border-b-1 px-4">
-    //               <Link to="/about-us">
-    //                 <p>About us</p>
-    //               </Link>
-    //             </div>
-    //             <div className="mt-2 border-b-1 px-4">
-    //               <Link to="/contacts">
-    //                 <p>Contacts</p>
-    //               </Link>
-    //             </div>
-    //             <div>
-    //               <Link to="/clubs">
-    //                 <p>CLubs and Societies</p>
-    //               </Link>
-    //             </div>
-    //           </div>
-    //         )}
-    //       </div>
-    //     </nav>
-
-    //     <footer></footer>
-    //   </div>
-    // </>
   );
 }
 
