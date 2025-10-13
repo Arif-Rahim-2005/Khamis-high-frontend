@@ -1,46 +1,12 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { useState } from "react";
+import { User } from "lucide-react";
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   return (
-    // <nav className="flex flex-row bg-green-700 text-white p-4 justify-between items-center">
-    //   <div className="flex-1/3 flex flex-row gap-1.5">
-    //     <div className="w-16 h-16 flex justify-center items-center">
-    //       <img src="./Photos/image.png" alt="Khamis High badge" />
-    //     </div>
-
-    //   </div>
-    //   <button className="md:hidden m-1.5" onClick={() => setIsOpen(!isOpen)}>
-    //     ☰
-    //   </button>
-    //   <div className="hidden md:flex flex-row gap-12 text-2xl font-semibold">
-    //     <div>
-    //       <Link to="/academics">
-    //         <p>Academics</p>
-    //       </Link>
-    //     </div>
-    //     <div>
-    //       <Link to="/about-us">
-    //         <p>About us</p>
-    //       </Link>
-    //     </div>
-    //     <div>
-    //       <Link to="/contacts">
-    //         <p>Contacts</p>
-    //       </Link>
-    //     </div>
-    //     <div>
-    //       <Link to="/clubs">
-    //         <p>CLubs and Societies</p>
-    //       </Link>
-    //     </div>
-    //     {/* <div>
-    //         <p>more...</p>
-    //       </div> */}
-    //   </div>
-
-    // </nav>
     <nav className="flex justify-between items-center px-6 md:px-16 py-4 bg-green-700 text-white shadow-md relative">
       {/* Logo */}
       <div className="flex items-center gap-3">
@@ -71,15 +37,72 @@ const Header = () => {
         <Link to="/clubs" className="hover:underline">
           Clubs and Societies
         </Link>
+
+        {/* Profile Icon */}
+        <div className="relative">
+          <button
+            onClick={() => setIsDropdownOpen((prev) => !prev)}
+            className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
+          >
+            <User className="w-6 h-6 text-white hover:text-yellow-300 transition-colors duration-300" />
+          </button>
+
+          {/* Dropdown Menu */}
+          {isDropdownOpen && (
+            <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg z-50 w-40">
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                onClick={() => alert("Open login form")}
+              >
+                Login
+              </button>
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                onClick={() => alert("Open signup form")}
+              >
+                Signup
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Mobile Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden text-3xl focus:outline-none"
-      >
-        ☰
-      </button>
+      <div className="flex col-start-2 justify-between items-center gap-2">
+        {/* Profile Icon */}
+        <div className="relative">
+          <button
+            onClick={() => setIsDropdownOpen((prev) => !prev)}
+            className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
+          >
+            <User className="w-10 h-10 text-white hover:text-yellow-300 transition-colors duration-300 pt-2"  />
+          </button>
+
+          {/* Dropdown Menu */}
+          {isDropdownOpen && (
+            <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg z-50 w-40">
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                onClick={() => alert("Open login form")}
+              >
+                Login
+              </button>
+              <button
+                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                onClick={() => alert("Open signup form")}
+              >
+                Signup
+              </button>
+            </div>
+          )}
+        </div>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-3xl focus:outline-none"
+        >
+          ☰
+        </button>
+      </div>
 
       {/* Mobile Dropdown */}
       {isOpen && (
