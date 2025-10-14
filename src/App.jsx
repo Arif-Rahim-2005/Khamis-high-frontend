@@ -17,8 +17,15 @@ import {
 } from "swiper/modules";
 import { useState } from "react";
 import Footer from "./components/Footer.jsx";
+import { User } from "lucide-react";
+import LoginModal from "./components/loginform.jsx";
+
+
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
     <>
       {/* NAVBAR */}
@@ -52,15 +59,83 @@ function App() {
           <Link to="/clubs" className="hover:underline">
             Clubs and Societies
           </Link>
+          {/* Profile Icon */}
+          <div className="relative">
+            <button
+              onClick={() => setIsDropdownOpen((prev) => !prev)}
+              className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
+            >
+              <User className="w-8 h-8 text-white hover:text-yellow-300 transition-colors duration-300 pt-2" />
+            </button>
+
+            {/* Dropdown Menu */}
+            {isDropdownOpen && (
+              <>
+                <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg z-50 w-40">
+                  <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setShowLogin(true)}
+                  >
+                    Login
+                  </button>
+                  <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => alert("Open signup form")}
+                  >
+                    Signup
+                  </button>
+                </div>
+
+                {showLogin && (
+                  <LoginModal onClose={() => setShowLogin(false)} />
+                )}
+              </>
+            )}
+          </div>
         </div>
 
         {/* Mobile Button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-3xl focus:outline-none"
-        >
-          ☰
-        </button>
+        <div className="flex items-center gap-3 md:hidden">
+          {/* Profile Icon */}
+          <div className="relative md:hidden">
+            <button
+              onClick={() => setIsDropdownOpen((prev) => !prev)}
+              className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
+            >
+              <User className="w-10 h-10 text-white hover:text-yellow-300 transition-colors duration-300 pt-2" />
+            </button>
+
+            {/* Dropdown Menu */}
+            {isDropdownOpen && (
+              <>
+                <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg z-50 w-40">
+                  <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => setShowLogin(true)}
+                  >
+                    Login
+                  </button>
+                  <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => alert("Open signup form")}
+                  >
+                    Signup
+                  </button>
+                </div>
+
+                {showLogin && (
+                  <LoginModal onClose={() => setShowLogin(false)} />
+                )}
+              </>
+            )}
+          </div>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-3xl focus:outline-none"
+          >
+            ☰
+          </button>
+        </div>
 
         {/* Mobile Dropdown */}
         {isOpen && (
