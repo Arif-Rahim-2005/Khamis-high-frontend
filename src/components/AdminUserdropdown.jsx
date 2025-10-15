@@ -1,177 +1,234 @@
 import React, { useEffect, useState } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL; // e.g. "http://127.0.0.1:5000"
 
-const AdminUsersDropdown = () => {
+export default function AdminUsersPanel() {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const [editingUser, setEditingUser] = useState(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const fetchUsers = async () => {
-    setLoading(true);
-    try {
-      const token = localStorage.getItem("access_token");
-      const res = await fetch(`${API_URL}/users`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await res.json();
-      setUsers(data);
-    } catch (err) {
-      console.error("Error fetching users:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const USERS_URL = `${BASE_URL}/users`;
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this user?")) return;
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem("access_token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  };
+
+  const fetchUsers = async () => {
+    setLoading(true);
+    setMessage("");
     try {
-      const token = localStorage.getItem("access_token");
-      const res = await fetch(`${API_URL}/users/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.ok) {
-        setUsers(users.filter((u) => u.id !== id));
-        alert("User deleted successfully");
-      } else {
-        const data = await res.json();
-        alert(data.message || "Failed to delete user");
-      }
+      const res = await fetch(USERS_URL, { headers: getAuthHeaders() });
+      const data = await res.json();
+      setUsers(Array.isArray(data) ? data : []);
     } catch (err) {
-      console.error(err);
-      alert("Error deleting user");
+      console.error("Error fetching users:", err);
+      setMessage("⚠️ Failed to load users.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleEdit = (user) => {
-    setEditingUser(user);
+  const startEdit = (user) => {
+    setEditingUser({
+      id: user.id,
+      username: user.username || "",
+      email: user.email || "",
+      role: user.role || "",
+    });
+    setMessage("");
   };
 
-  const handleSave = async () => {
+  const cancelEdit = () => {
+    setEditingUser(null);
+    setMessage("");
+  };
+
+  const saveEdit = async (e) => {
+    e?.preventDefault?.();
+    if (!editingUser) return;
+    setMessage("");
+    if (!editingUser.username.trim() || !editingUser.email.trim()) {
+      setMessage("⚠️ Please fill required fields.");
+      return;
+    }
+
     try {
-      const token = localStorage.getItem("access_token");
-      const res = await fetch(`${API_URL}/users/${editingUser.id}`, {
+      const res = await fetch(`${USERS_URL}/${editingUser.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          ...getAuthHeaders(),
         },
         body: JSON.stringify({
-          username: editingUser.username,
-          email: editingUser.email,
-          role: editingUser.role,
+          username: editingUser.username.trim(),
+          email: editingUser.email.trim(),
+          role: editingUser.role?.trim() || undefined,
         }),
       });
 
+      const data = await res.json();
       if (res.ok) {
-        alert("User updated successfully");
+        setMessage("✅ User updated successfully.");
         setEditingUser(null);
         fetchUsers();
       } else {
-        const data = await res.json();
-        alert(data.message || "Failed to update user");
+        setMessage(`❌ ${data.message || "Failed to update user."}`);
       }
     } catch (err) {
-      console.error(err);
-      alert("Error updating user");
+      console.error("Error updating user:", err);
+      setMessage("❌ Server error while updating user.");
     }
   };
 
-  if (loading) return <p>Loading users...</p>;
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this user?")) return;
+    setMessage("");
+    try {
+      const res = await fetch(`${USERS_URL}/${id}`, {
+        method: "DELETE",
+        headers: getAuthHeaders(),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setMessage("🗑️ User deleted.");
+        setUsers((prev) => prev.filter((u) => u.id !== id));
+      } else {
+        setMessage(`❌ ${data.message || "Failed to delete user."}`);
+      }
+    } catch (err) {
+      console.error("Error deleting user:", err);
+      setMessage("❌ Server error while deleting user.");
+    }
+  };
 
   return (
-    <div className="mb-6">
-      <button
-        onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="px-4 py-2 bg-green-700 text-white rounded-md"
-      >
-        {dropdownOpen ? "Hide Users" : "Show Users"}
-      </button>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-green-700 mb-4">
+        👥 Manage Users
+      </h2>
 
-      {dropdownOpen && (
-        <div className="mt-4 border rounded-md p-4 bg-white shadow-md">
-          {users.map((user) => (
-            <div
-              key={user.id}
-              className="flex items-center justify-between mb-2 border-b pb-1"
-            >
-              <div>
-                <p>
-                  <strong>{user.username}</strong> ({user.email}) - {user.role}
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <button
-                  className="text-blue-600 hover:underline"
-                  onClick={() => handleEdit(user)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="text-red-600 hover:underline"
-                  onClick={() => handleDelete(user.id)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-
-          {editingUser && (
-            <div className="mt-4 p-4 border rounded-md bg-gray-50">
-              <h3 className="font-semibold mb-2">Edit User</h3>
-              <input
-                type="text"
-                className="border rounded px-2 py-1 mb-2 w-full"
-                value={editingUser.username}
-                onChange={(e) =>
-                  setEditingUser({ ...editingUser, username: e.target.value })
-                }
-              />
-              <input
-                type="email"
-                className="border rounded px-2 py-1 mb-2 w-full"
-                value={editingUser.email}
-                onChange={(e) =>
-                  setEditingUser({ ...editingUser, email: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                className="border rounded px-2 py-1 mb-2 w-full"
-                value={editingUser.role}
-                onChange={(e) =>
-                  setEditingUser({ ...editingUser, role: e.target.value })
-                }
-              />
-              <div className="flex gap-2">
-                <button
-                  onClick={handleSave}
-                  className="px-3 py-1 bg-green-600 text-white rounded"
-                >
-                  Save
-                </button>
-                <button
-                  onClick={() => setEditingUser(null)}
-                  className="px-3 py-1 bg-gray-300 rounded"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          )}
+      {message && (
+        <div className="mb-3 bg-gray-100 text-center text-sm py-2 rounded-md text-gray-700">
+          {message}
         </div>
       )}
+
+      {/* Inline Edit Form */}
+      {editingUser && (
+        <form
+          onSubmit={saveEdit}
+          className="bg-green-50 border border-green-300 p-4 rounded-md shadow-sm mb-6"
+        >
+          <h3 className="font-semibold mb-3">Edit User</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <input
+              type="text"
+              value={editingUser.username}
+              onChange={(e) =>
+                setEditingUser((p) => ({ ...p, username: e.target.value }))
+              }
+              placeholder="Username"
+              className="border rounded p-2 w-full"
+              required
+            />
+            <input
+              type="email"
+              value={editingUser.email}
+              onChange={(e) =>
+                setEditingUser((p) => ({ ...p, email: e.target.value }))
+              }
+              placeholder="Email"
+              className="border rounded p-2 w-full"
+              required
+            />
+            <input
+              type="text"
+              value={editingUser.role}
+              onChange={(e) =>
+                setEditingUser((p) => ({ ...p, role: e.target.value }))
+              }
+              placeholder="Role (e.g. Admin)"
+              className="border rounded p-2 w-full"
+            />
+          </div>
+
+          <div className="mt-3 flex items-center gap-3">
+            <button
+              type="submit"
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              onClick={cancelEdit}
+              className="text-gray-600 hover:underline"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      )}
+
+      {/* Users Table */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full border border-green-300 rounded-md">
+          <thead className="bg-green-600 text-white">
+            <tr>
+              <th className="p-2 border">#</th>
+              <th className="p-2 border">Username</th>
+              <th className="p-2 border">Email</th>
+              <th className="p-2 border">Role</th>
+              <th className="p-2 border text-center">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {loading ? (
+              <tr>
+                <td colSpan="5" className="p-3 text-center text-gray-500">
+                  Loading users...
+                </td>
+              </tr>
+            ) : users.length > 0 ? (
+              users.map((user, idx) => (
+                <tr key={user.id} className="odd:bg-green-50">
+                  <td className="p-2 border">{idx + 1}</td>
+                  <td className="p-2 border">{user.username}</td>
+                  <td className="p-2 border">{user.email}</td>
+                  <td className="p-2 border">{user.role}</td>
+                  <td className="p-2 border text-center">
+                    <button
+                      onClick={() => startEdit(user)}
+                      className="bg-yellow-400 hover:bg-yellow-500 text-white px-2 py-1 rounded mr-2"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(user.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="p-3 text-center text-gray-500">
+                  No users found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-};
-
-export default AdminUsersDropdown;
+}
