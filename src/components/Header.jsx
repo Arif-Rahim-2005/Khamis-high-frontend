@@ -1,13 +1,42 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { User } from "lucide-react";
 import LoginModal from "./loginform";
+import SignUpModal from "./Signupform";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("access_token");
+      if (!token) return;
+
+      try {
+        const res = await fetch(`${API_URL}/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch user");
+
+        const data = await res.json();
+        setUser(data.user || data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   return (
     <nav className="flex justify-between items-center px-6 md:px-16 py-4 bg-green-700 text-white shadow-md relative">
@@ -28,6 +57,9 @@ const Header = () => {
 
       {/* Desktop Links */}
       <div className="hidden md:flex gap-8 text-lg font-light items-center">
+        {user && user.role === "Admin" && (
+          <Link to="/admin" className="hover:underline">Admin Panel</Link>
+        )}
         <Link to="/academics" className="hover:underline">
           Academics
         </Link>
@@ -61,13 +93,16 @@ const Header = () => {
                 </button>
                 <button
                   className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                  onClick={() => alert("Open signup form")}
+                  onClick={() => setShowSignup(true)}
                 >
                   Signup
                 </button>
               </div>
 
               {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
+              {showSignup && (
+                <SignUpModal onClose={() => setShowSignup(false)} />
+              )}
             </>
           )}
         </div>
@@ -95,13 +130,16 @@ const Header = () => {
                 </button>
                 <button
                   className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                  onClick={() => alert("Open signup form")}
+                  onClick={() => setShowSignup(true)}
                 >
                   Signup
                 </button>
               </div>
 
               {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
+              {showSignup && (
+                <SignUpModal onClose={() => setShowSignup(false)} />
+              )}
             </>
           )}
         </div>
@@ -116,6 +154,9 @@ const Header = () => {
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden absolute right-0 top-full  bg-green-700 border-t border-white shadow-lg z-50">
+          {user && user.role === "Admin" && (
+            <Link href="/admin">Admin Panel</Link>
+          )}
           <Link
             to="/academics"
             className="block px-6 py-3 hover:bg-green-600 border-b border-white"
