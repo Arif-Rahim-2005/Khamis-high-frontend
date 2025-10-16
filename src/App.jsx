@@ -22,7 +22,6 @@ import LoginModal from "./components/loginform.jsx";
 import SignUpModal from "./components/Signupform.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
-
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -82,6 +81,9 @@ function App() {
           )}
           <Link to="/academics" className="hover:underline">
             Academics
+          </Link>
+          <Link to="/fee" className="hover:underline">
+            Fee Structure
           </Link>
           <Link to="/about-us" className="hover:underline">
             About Us
@@ -189,6 +191,9 @@ function App() {
               className="block px-6 py-3 hover:bg-green-600 border-b border-white"
             >
               Academics
+            </Link>
+            <Link to="/fee" className="hover:underline">
+              Fee Structure
             </Link>
             <Link
               to="/about-us"

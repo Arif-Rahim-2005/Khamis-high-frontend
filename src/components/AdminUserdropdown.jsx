@@ -5,7 +5,6 @@ const BASE_URL = import.meta.env.VITE_API_URL; // e.g. "http://127.0.0.1:5000"
 export default function AdminUsersPanel() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
   const [editingUser, setEditingUser] = useState(null);
 
   const USERS_URL = `${BASE_URL}/users`;
@@ -21,14 +20,13 @@ export default function AdminUsersPanel() {
 
   const fetchUsers = async () => {
     setLoading(true);
-    setMessage("");
     try {
       const res = await fetch(USERS_URL, { headers: getAuthHeaders() });
       const data = await res.json();
       setUsers(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching users:", err);
-      setMessage("⚠️ Failed to load users.");
+      alert("⚠️ Failed to load users.");
     } finally {
       setLoading(false);
     }
@@ -41,20 +39,18 @@ export default function AdminUsersPanel() {
       email: user.email || "",
       role: user.role || "",
     });
-    setMessage("");
   };
 
   const cancelEdit = () => {
     setEditingUser(null);
-    setMessage("");
   };
 
   const saveEdit = async (e) => {
     e?.preventDefault?.();
     if (!editingUser) return;
-    setMessage("");
+
     if (!editingUser.username.trim() || !editingUser.email.trim()) {
-      setMessage("⚠️ Please fill required fields.");
+      alert("⚠️ Please fill required fields.");
       return;
     }
 
@@ -74,21 +70,21 @@ export default function AdminUsersPanel() {
 
       const data = await res.json();
       if (res.ok) {
-        setMessage("✅ User updated successfully.");
+        alert("✅ User updated successfully.");
         setEditingUser(null);
         fetchUsers();
       } else {
-        setMessage(`❌ ${data.message || "Failed to update user."}`);
+        alert(`❌ ${data.message || "Failed to update user."}`);
       }
     } catch (err) {
       console.error("Error updating user:", err);
-      setMessage("❌ Server error while updating user.");
+      alert("❌ Server error while updating user.");
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
-    setMessage("");
+
     try {
       const res = await fetch(`${USERS_URL}/${id}`, {
         method: "DELETE",
@@ -96,14 +92,14 @@ export default function AdminUsersPanel() {
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage("🗑️ User deleted.");
+        alert("🗑️ User deleted.");
         setUsers((prev) => prev.filter((u) => u.id !== id));
       } else {
-        setMessage(`❌ ${data.message || "Failed to delete user."}`);
+        alert(`❌ ${data.message || "Failed to delete user."}`);
       }
     } catch (err) {
       console.error("Error deleting user:", err);
-      setMessage("❌ Server error while deleting user.");
+      alert("❌ Server error while deleting user.");
     }
   };
 
@@ -112,12 +108,6 @@ export default function AdminUsersPanel() {
       <h2 className="text-2xl font-bold text-green-700 mb-4">
         👥 Manage Users
       </h2>
-
-      {message && (
-        <div className="mb-3 bg-gray-100 text-center text-sm py-2 rounded-md text-gray-700">
-          {message}
-        </div>
-      )}
 
       {/* Inline Edit Form */}
       {editingUser && (

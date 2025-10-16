@@ -9,12 +9,14 @@ import Clubs from './pages/clubs.jsx'
 import Academics from './pages/Academics.jsx'
 import AdminPage from './pages/Admin.jsx'
 import ProtectedAdminRoute from "./components/protectedAdminroute.jsx";
+import FeeStructure from './pages/FeeStructure.jsx'
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/contacts", element: <Contacts /> },
   { path: "/academics", element: <Academics /> },
   { path: "/clubs", element: <Clubs /> },
+  { path: "/fee", element: <FeeStructure /> },
   {
     path: "/admin",
     element: (

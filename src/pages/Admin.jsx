@@ -5,6 +5,7 @@ import AdminDepartmentsDropdown from "../components/departmentsDropdown";
 import SubjectsDropdown from "../components/SubjectsDropdown";
 import TracksPage from "../components/TrackDropdown";
 import AdminUsersPanel from "../components/AdminUserdropdown";
+import ClubsDropdown from "../components/clubs";
 
 const AdminPage = () => {
     return (
@@ -16,6 +17,7 @@ const AdminPage = () => {
           <AdminDepartmentsDropdown />
           <TracksPage />
           <SubjectsDropdown />
+          <ClubsDropdown />
 
           <Footer />
         </div>

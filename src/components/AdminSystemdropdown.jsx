@@ -8,7 +8,6 @@ export default function AdminSystemsPanel() {
   const [isEditing, setIsEditing] = useState(null);
   const [editData, setEditData] = useState({ name: "" });
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   const SYSTEMS_URL = `${BASE_URL}/systems`;
 
@@ -23,16 +22,15 @@ export default function AdminSystemsPanel() {
       setSystems(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching systems:", err);
-      setMessage("⚠️ Failed to load systems.");
+      alert("⚠️ Failed to load systems.");
     }
   };
 
   // Add system
   const handleAdd = async (e) => {
     e?.preventDefault?.();
-    setMessage("");
     if (!formData.name.trim()) {
-      setMessage("⚠️ Please enter a system name.");
+      alert("⚠️ Please enter a system name.");
       return;
     }
     setLoading(true);
@@ -44,15 +42,15 @@ export default function AdminSystemsPanel() {
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage("✅ System added!");
+        alert("✅ System added!");
         setFormData({ name: "" });
         fetchSystems();
       } else {
-        setMessage(`❌ ${data.message || "Failed to add system."}`);
+        alert(`❌ ${data.message || "Failed to add system."}`);
       }
     } catch (err) {
       console.error("Error adding system:", err);
-      setMessage("❌ Server error while adding system.");
+      alert("❌ Server error while adding system.");
     } finally {
       setLoading(false);
     }
@@ -62,15 +60,13 @@ export default function AdminSystemsPanel() {
   const startEdit = (sys) => {
     setIsEditing(sys.id);
     setEditData({ name: sys.name || "" });
-    setMessage("");
   };
 
   // Save edit (PATCH)
   const handleSaveEdit = async (e) => {
     e?.preventDefault?.();
-    setMessage("");
     if (!editData.name.trim()) {
-      setMessage("⚠️ Please enter a name.");
+      alert("⚠️ Please enter a name.");
       return;
     }
     setLoading(true);
@@ -82,16 +78,16 @@ export default function AdminSystemsPanel() {
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage("✏️ System updated!");
+        alert("✏️ System updated!");
         setIsEditing(null);
         setEditData({ name: "" });
         fetchSystems();
       } else {
-        setMessage(`❌ ${data.message || "Failed to update system."}`);
+        alert(`❌ ${data.message || "Failed to update system."}`);
       }
     } catch (err) {
       console.error("Error updating system:", err);
-      setMessage("❌ Server error while updating system.");
+      alert("❌ Server error while updating system.");
     } finally {
       setLoading(false);
     }
@@ -100,19 +96,18 @@ export default function AdminSystemsPanel() {
   // Delete
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this system?")) return;
-    setMessage("");
     try {
       const res = await fetch(`${SYSTEMS_URL}/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (res.ok) {
-        setMessage("🗑️ System deleted!");
+        alert("🗑️ System deleted!");
         fetchSystems();
       } else {
-        setMessage(`❌ ${data.message || "Failed to delete system."}`);
+        alert(`❌ ${data.message || "Failed to delete system."}`);
       }
     } catch (err) {
       console.error("Error deleting system:", err);
-      setMessage("❌ Server error while deleting system.");
+      alert("❌ Server error while deleting system.");
     }
   };
 
@@ -121,12 +116,6 @@ export default function AdminSystemsPanel() {
       <h2 className="text-2xl font-bold text-green-700 mb-4">
         🧭 Manage Systems
       </h2>
-
-      {message && (
-        <div className="mb-3 bg-gray-100 text-center text-sm py-2 rounded-md text-gray-700">
-          {message}
-        </div>
-      )}
 
       {/* Add / Edit Form */}
       <form

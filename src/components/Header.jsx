@@ -58,10 +58,15 @@ const Header = () => {
       {/* Desktop Links */}
       <div className="hidden md:flex gap-8 text-lg font-light items-center">
         {user && user.role === "Admin" && (
-          <Link to="/admin" className="hover:underline">Admin Panel</Link>
+          <Link to="/admin" className="hover:underline">
+            Admin Panel
+          </Link>
         )}
         <Link to="/academics" className="hover:underline">
           Academics
+        </Link>
+        <Link to="/fee" className="hover:underline">
+          Fee Structure
         </Link>
         <Link to="/about-us" className="hover:underline">
           About Us
@@ -162,6 +167,9 @@ const Header = () => {
             className="block px-6 py-3 hover:bg-green-600 border-b border-white"
           >
             Academics
+          </Link>
+          <Link to="/fee" className="hover:underline">
+            Fee Structure
           </Link>
           <Link
             to="/about-us"
