@@ -20,6 +20,7 @@ import Footer from "./components/Footer.jsx";
 import { User } from "lucide-react";
 import LoginModal from "./components/loginform.jsx";
 import SignUpModal from "./components/Signupform.jsx";
+import AdminBelt from "./components/AlumniBelt.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
@@ -284,6 +285,7 @@ function App() {
             </p>
           </div>
         </section>
+        <AdminBelt />
 
         {/* cards */}
         <div className="bg-gradient-to-b from-white to-gray-200">

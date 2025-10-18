@@ -1,1 +1,17 @@
 @import "tailwindcss";
+@keyframes belt {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-belt {
+  animation: belt 40s linear infinite;
+}
+
+.animate-belt:hover {
+  animation-play-state: paused;
+}

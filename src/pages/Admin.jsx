@@ -6,6 +6,8 @@ import SubjectsDropdown from "../components/SubjectsDropdown";
 import TracksPage from "../components/TrackDropdown";
 import AdminUsersPanel from "../components/AdminUserdropdown";
 import ClubsDropdown from "../components/clubs";
+import AdminAlumni from "../components/Alumnitable";
+import SubjectSelectionTable from "../components/SubjectSelection";
 
 const AdminPage = () => {
     return (
@@ -18,7 +20,8 @@ const AdminPage = () => {
           <TracksPage />
           <SubjectsDropdown />
           <ClubsDropdown />
-
+          <AdminAlumni/>
+<SubjectSelectionTable />
           <Footer />
         </div>
       </>
