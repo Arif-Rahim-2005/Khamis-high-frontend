@@ -1,226 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-
-// const API_URL = import.meta.env.VITE_API_URL;
-// export default function SubjectSelectionTable() {
-//   const [selections, setSelections] = useState([]);
-//   const [systems, setSystems] = useState([]);
-//   const [departments, setDepartments] = useState([]);
-//   const [tracks, setTracks] = useState([]);
-//   const [newSelection, setNewSelection] = useState({
-//     name: "",
-//     subjects: "",
-//     system_id: "",
-//     department_id: "",
-//     track_id: "",
-//   });
-//   const [editId, setEditId] = useState(null);
-
-//   // Fetch all data on load
-//   useEffect(() => {
-//     fetchSelections();
-//     fetchSystems();
-//     fetchDepartments();
-//     fetchTracks();
-//   }, []);
-
-//   const fetchSelections = async () => {
-//     const res = await axios.get(`${API_URL}/subject-selections`);
-//     setSelections(res.data);
-//   };
-
-//   const fetchSystems = async () => {
-//     const res = await axios.get(`${API_URL}/systems`);
-//     setSystems(res.data);
-//   };
-
-//   const fetchDepartments = async () => {
-//       const res = await axios.get(`${API_URL} /departments`);
-//     setDepartments(res.data);
-//   };
-
-//   const fetchTracks = async () => {
-//     const res = await axios.get(`${API_URL}/tracks`);
-//     setTracks(res.data);
-//   };
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setNewSelection({ ...newSelection, [name]: value });
-//   };
-
-//   const handleAddOrUpdate = async () => {
-//     const payload = {
-//       ...newSelection,
-//       subjects: newSelection.subjects
-//         .split(",")
-//         .map((s) => s.trim())
-//         .filter((s) => s !== ""),
-//     };
-
-//     if (editId) {
-//       await axios.patch(`${API_URL}/subject-selections/${editId}`, payload);
-//     } else {
-//       await axios.post(`${API_URL}/subject-selections`, payload);
-//     }
-
-//     setNewSelection({
-//       name: "",
-//       subjects: "",
-//       system_id: "",
-//       department_id: "",
-//       track_id: "",
-//     });
-//     setEditId(null);
-//     fetchSelections();
-//   };
-
-//   const handleEdit = (selection) => {
-//     setEditId(selection.id);
-//     setNewSelection({
-//       name: selection.name,
-//       subjects: Array.isArray(selection.subjects)
-//         ? selection.subjects.join(", ")
-//         : selection.subjects,
-//       system_id: selection.system_id || "",
-//       department_id: selection.department_id || "",
-//       track_id: selection.track_id || "",
-//     });
-//   };
-
-//   const handleDelete = async (id) => {
-//     await axios.delete(`${API_URL}/subject-selections/${id}`);
-//     fetchSelections();
-//   };
-
-//   return (
-//     <div className="p-4">
-//       <h2 className="text-xl font-semibold mb-4">
-//         Subject Selections Management
-//       </h2>
-
-//       {/* ADD / EDIT FORM */}
-//       <div className="grid grid-cols-1 md:grid-cols-5 gap-3 mb-6">
-//         <input
-//           type="text"
-//           name="name"
-//           value={newSelection.name}
-//           onChange={handleInputChange}
-//           placeholder="Selection Name"
-//           className="border p-2 rounded"
-//         />
-
-//         <input
-//           type="text"
-//           name="subjects"
-//           value={newSelection.subjects}
-//           onChange={handleInputChange}
-//           placeholder="Subjects (comma separated)"
-//           className="border p-2 rounded"
-//         />
-
-//         <select
-//           name="system_id"
-//           value={newSelection.system_id}
-//           onChange={handleInputChange}
-//           className="border p-2 rounded"
-//         >
-//           <option value="">Select System</option>
-//           {systems.map((sys) => (
-//             <option key={sys.id} value={sys.id}>
-//               {sys.name}
-//             </option>
-//           ))}
-//         </select>
-
-//         <select
-//           name="department_id"
-//           value={newSelection.department_id}
-//           onChange={handleInputChange}
-//           className="border p-2 rounded"
-//         >
-//           <option value="">Select Department</option>
-//           {departments.map((dep) => (
-//             <option key={dep.id} value={dep.id}>
-//               {dep.name}
-//             </option>
-//           ))}
-//         </select>
-
-//         <select
-//           name="track_id"
-//           value={newSelection.track_id}
-//           onChange={handleInputChange}
-//           className="border p-2 rounded"
-//         >
-//           <option value="">Select Track (optional)</option>
-//           {tracks.map((trk) => (
-//             <option key={trk.id} value={trk.id}>
-//               {trk.name}
-//             </option>
-//           ))}
-//         </select>
-//       </div>
-
-//       <button
-//         onClick={handleAddOrUpdate}
-//         className="bg-blue-600 text-white px-4 py-2 rounded mb-6 hover:bg-blue-700"
-//       >
-//         {editId ? "Update Selection" : "Add Selection"}
-//       </button>
-
-//       {/* TABLE DISPLAY */}
-//       <table className="w-full border-collapse border">
-//         <thead>
-//           <tr className="bg-gray-100 text-left">
-//             <th className="p-2 border">Name</th>
-//             <th className="p-2 border">Subjects</th>
-//             <th className="p-2 border">System</th>
-//             <th className="p-2 border">Department</th>
-//             <th className="p-2 border">Track</th>
-//             <th className="p-2 border">Actions</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {selections.map((s) => (
-//             <tr key={s.id} className="hover:bg-gray-50">
-//               <td className="p-2 border">{s.name}</td>
-//               <td className="p-2 border">
-//                 {Array.isArray(s.subjects)
-//                   ? s.subjects.join(", ")
-//                   : s.subjects || "-"}
-//               </td>
-//               <td className="p-2 border">
-//                 {systems.find((sys) => sys.id === s.system_id)?.name || "-"}
-//               </td>
-//               <td className="p-2 border">
-//                 {departments.find((dep) => dep.id === s.department_id)?.name ||
-//                   "-"}
-//               </td>
-//               <td className="p-2 border">
-//                 {tracks.find((trk) => trk.id === s.track_id)?.name || "-"}
-//               </td>
-//               <td className="p-2 border flex gap-2">
-//                 <button
-//                   onClick={() => handleEdit(s)}
-//                   className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
-//                 >
-//                   Edit
-//                 </button>
-//                 <button
-//                   onClick={() => handleDelete(s.id)}
-//                   className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
-//                 >
-//                   Delete
-//                 </button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// }
 import { useEffect, useState } from "react";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -328,7 +105,7 @@ export default function SubjectSelectionTable() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
+console.log(payload)
       const data = await res.json();
       if (res.ok) {
         alert("✅ Subject selection added successfully!");
@@ -591,15 +368,15 @@ export default function SubjectSelectionTable() {
                       : sel.subjects || "-"}
                   </td>
                   <td className="p-2 border">
-                    {systems.find((sys) => sys.id === sel.system_id)?.name ||
+                    {systems.find((sys) => sys.id === sel.system.id)?.name ||
                       "-"}
                   </td>
                   <td className="p-2 border">
-                    {departments.find((dep) => dep.id === sel.department_id)
+                    {departments.find((dep) => dep.id === sel.department.id)
                       ?.name || "-"}
                   </td>
                   <td className="p-2 border">
-                    {tracks.find((trk) => trk.id === sel.track_id)?.name || "-"}
+                    {tracks.find((trk) => trk.id === sel.track.id)?.name || "-"}
                   </td>
                   <td className="p-2 border text-center">
                     <button

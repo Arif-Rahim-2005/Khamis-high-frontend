@@ -46,14 +46,14 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-semibold mb-3">Contact</h4>
             <button
-              className="text-sm"
+              className="text-sm hover:underline"
               onClick={() => {
                 window.open(
                   "https://www.google.com/maps/place/Khamis+High+School/@-4.0367878,39.6655004,21z/data=!4m14!1m7!3m6!1s0x184012bb606b45f9:0x7005df7c181e532c!2sKhamis+High+School!8m2!3d-4.0366647!4d39.6656861!16s%2Fg%2F1pyqsnm54!3m5!1s0x184012bb606b45f9:0x7005df7c181e532c!8m2!3d-4.0366647!4d39.6656861!16s%2Fg%2F1pyqsnm54?entry=ttu&g_ep=EgoyMDI1MTAxNC4wIKXMDSoASAFQAw%3D%3D"
                 );
               }}
             >
-              📍 Khamis, Mombasa
+              📍 Khamis, Mombasa (view location)
             </button>
             <p className="text-sm">📧 Khamishigh@yahoo.com</p>
             <p className="text-sm">📞 +254 0203590180</p>

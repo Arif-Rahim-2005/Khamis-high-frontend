@@ -285,7 +285,6 @@ function App() {
             </p>
           </div>
         </section>
-        <AdminBelt />
 
         {/* cards */}
         <div className="bg-gradient-to-b from-white to-gray-200">
@@ -353,6 +352,7 @@ function App() {
             </section>
           </div>
         </div>
+        <AdminBelt />
       </main>
       {/* FOOTER */}
       <Footer />
