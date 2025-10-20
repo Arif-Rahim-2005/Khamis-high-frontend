@@ -5,7 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import AboutUs from './pages/About-us.jsx'
 import Contacts from './pages/Contacts.jsx'
-import Clubs from './pages/clubs.jsx'
+import Clubs from './pages/clubsPage.jsx'
 import Academics from './pages/Academics.jsx'
 import AdminPage from './pages/Admin.jsx'
 import ProtectedAdminRoute from "./components/protectedAdminroute.jsx";

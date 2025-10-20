@@ -15,6 +15,7 @@ const Clubs = () => {
     try {
       const res = await fetch(`${BASE_URL}/clubs`);
       const data = await res.json();
+      console.log(data)
       setClubs(data);
     } catch (err) {
       console.error("Error fetching clubs:", err);

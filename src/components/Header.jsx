@@ -160,7 +160,7 @@ const Header = () => {
       {isOpen && (
         <div className="md:hidden absolute right-0 top-full  bg-green-700 border-t border-white shadow-lg z-50">
           {user && user.role === "Admin" && (
-            <Link href="/admin">Admin Panel</Link>
+            <Link to="/admin">Admin Panel</Link>
           )}
           <Link
             to="/academics"
