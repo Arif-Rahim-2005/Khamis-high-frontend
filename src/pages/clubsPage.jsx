@@ -60,7 +60,7 @@ const Clubs = () => {
                   {/* Image */}
                   {club.image_path ? (
                     <img
-                      src={club.image_path}
+                      src={`${BASE_URL}${club.image_path}`}
                       alt={club.name}
                       className="w-full md:w-1/2 h-64 object-cover"
                     />

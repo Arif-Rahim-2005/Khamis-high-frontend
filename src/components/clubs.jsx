@@ -181,9 +181,9 @@ export default function ClubsDropdown() {
                   <td className="p-2 border">{club.name}</td>
                   <td className="p-2 border">{club.description || "-"}</td>
                   <td className="p-2 border">
-                    {club.image_url ? (
+                    {club.image_path ? (
                       <img
-                        src={club.image_path}
+                        src={`${BASE_URL}${club.image_path}`}
                         alt={club.name}
                         className="h-12 w-12 object-cover rounded"
                       />
