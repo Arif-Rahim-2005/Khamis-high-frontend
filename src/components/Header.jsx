@@ -168,7 +168,10 @@ const Header = () => {
           >
             Academics
           </Link>
-          <Link to="/fee" className="hover:underline">
+          <Link
+            to="/fee"
+            className="hover:underline block px-6 py-3 hover:bg-green-600 border-b border-white"
+          >
             Fee Structure
           </Link>
           <Link
