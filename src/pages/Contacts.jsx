@@ -131,7 +131,16 @@ const Contacts = () => {
         {/* Contact Info Section */}
         <div className="mt-16 text-center text-gray-700">
           <p className="font-semibold text-lg">Khamis High School</p>
-          <p>Along Mombasa Road, Kenya</p>
+          <button
+            className="text-sm hover:underline"
+            onClick={() => {
+              window.open(
+                "https://www.google.com/maps/place/Khamis+High+School/@-4.0367878,39.6655004,21z/data=!4m14!1m7!3m6!1s0x184012bb606b45f9:0x7005df7c181e532c!2sKhamis+High+School!8m2!3d-4.0366647!4d39.6656861!16s%2Fg%2F1pyqsnm54!3m5!1s0x184012bb606b45f9:0x7005df7c181e532c!8m2!3d-4.0366647!4d39.6656861!16s%2Fg%2F1pyqsnm54?entry=ttu&g_ep=EgoyMDI1MTAxNC4wIKXMDSoASAFQAw%3D%3D"
+              );
+            }}
+          >
+            <p>Along Mombasa Road, Kenya (Click to view in maps)</p>
+          </button>
           <p>Email: Khamishigh@yahoo.com</p>
           <p>Phone: +254 0203590180</p>
         </div>
