@@ -53,7 +53,7 @@ const Clubs = () => {
               return (
                 <div
                   key={club.id}
-                  className={`flex flex-col md:flex-row items-center gap-6 shadow-lg rounded-2xl overflow-hidden bg-white hover:shadow-2xl transition-shadow duration-300 ${
+                  className={`flex flex-col md:flex-row items-center gap-6  overflow-hidden ${
                     !isImageLeft ? "md:flex-row-reverse" : ""
                   }`}
                 >
@@ -71,8 +71,8 @@ const Clubs = () => {
                   )}
 
                   {/* Text */}
-                  <div className="md:w-1/2 p-6">
-                    <h3 className="text-2xl font-bold text-green-700 mb-3">
+                  <div className="md:w-1/2 p-6 text-center">
+                    <h3 className="text-2xl font-bold text-green-700 mb-3 border-b-2 border-green-700">
                       {club.name}
                     </h3>
                     <p className="text-gray-700 leading-relaxed">
