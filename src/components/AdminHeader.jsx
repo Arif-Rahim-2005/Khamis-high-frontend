@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { useState, useEffect } from "react";
-// import { User } from "lucide-react";
-// import LoginModal from "./loginform";
-// import SignUpModal from "./Signupform";
+import { User } from "lucide-react";
+import LoginModal from "./loginform";
+import SignUpModal from "./Signupform";
 const API_URL = import.meta.env.VITE_API_URL;
 
-const Header = () => {
+const AdminHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // const [showLogin, setShowLogin] = useState(false);
-  // const [showSignup, setShowSignup] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
 
   const [user, setUser] = useState(null);
 
@@ -58,7 +58,7 @@ const Header = () => {
       {/* Desktop Links */}
       <div className="hidden md:flex gap-8 text-lg font-light items-center">
         {user && user.role === "Admin" && (
-          <Link to="/adminpanel" className="hover:underline">
+          <Link to="/admin" className="hover:underline">
             Admin Panel
           </Link>
         )}
@@ -79,7 +79,7 @@ const Header = () => {
         </Link>
 
         {/* Profile Icon */}
-        {/* <div className="">
+        <div className="">
           <button
             onClick={() => setIsDropdownOpen((prev) => !prev)}
             className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
@@ -110,13 +110,13 @@ const Header = () => {
               )}
             </>
           )}
-        </div> */}
+        </div>
       </div>
 
       {/* Mobile Button */}
       <div className="flex items-center gap-3 md:hidden">
         {/* Profile Icon */}
-        {/* <div className="relative md:hidden">
+        <div className="relative md:hidden">
           <button
             onClick={() => setIsDropdownOpen((prev) => !prev)}
             className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
@@ -147,7 +147,7 @@ const Header = () => {
               )}
             </>
           )}
-        </div> */}
+        </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-3xl focus:outline-none"
@@ -160,12 +160,7 @@ const Header = () => {
       {isOpen && (
         <div className="md:hidden absolute right-0 top-full  bg-green-700 border-t border-white shadow-lg z-50">
           {user && user.role === "Admin" && (
-            <Link
-              to="/adminpanel"
-              className="block px-6 py-3 hover:bg-green-600 border-b border-white"
-            >
-              Admin Panel
-            </Link>
+            <Link to="/admin">Admin Panel</Link>
           )}
           <Link
             to="/academics"
@@ -199,4 +194,4 @@ const Header = () => {
     </nav>
   );
 };
-export default Header;
+export default AdminHeader;

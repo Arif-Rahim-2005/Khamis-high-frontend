@@ -17,17 +17,17 @@ import {
 } from "swiper/modules";
 import { useState, useEffect } from "react";
 import Footer from "./components/Footer.jsx";
-import { User } from "lucide-react";
-import LoginModal from "./components/loginform.jsx";
-import SignUpModal from "./components/Signupform.jsx";
+// import { User } from "lucide-react";
+// import LoginModal from "./components/loginform.jsx";
+// import SignUpModal from "./components/Signupform.jsx";
 import AdminBelt from "./components/AlumniBelt.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);
+  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // const [showLogin, setShowLogin] = useState(false);
+  // const [showSignup, setShowSignup] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ function App() {
         {/* Desktop Links */}
         <div className="hidden md:flex gap-8 text-lg font-light items-center">
           {user && user.role === "Admin" && (
-            <Link to="/admin" className="hover:underline">
+            <Link to="/adminpanel" className="hover:underline">
               Admin Panel
             </Link>
           )}
@@ -96,15 +96,14 @@ function App() {
             Clubs and Societies
           </Link>
           {/* Profile Icon */}
-          <div className="relative">
+          {/* <div className="relative">
             <button
               onClick={() => setIsDropdownOpen((prev) => !prev)}
               className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
             >
               <User className="w-8 h-8 text-white hover:text-yellow-300 transition-colors duration-300 pt-2" />
             </button>
-
-            {/* Dropdown Menu */}
+          // dropdown menu
             {isDropdownOpen && (
               <>
                 <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg z-50 w-40">
@@ -130,13 +129,13 @@ function App() {
                 )}
               </>
             )}
-          </div>
+          </div> */}
         </div>
 
         {/* Mobile Button */}
         <div className="flex items-center gap-3 md:hidden">
           {/* Profile Icon */}
-          <div className="relative md:hidden">
+          {/* <div className="relative md:hidden">
             <button
               onClick={() => setIsDropdownOpen((prev) => !prev)}
               className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
@@ -144,7 +143,7 @@ function App() {
               <User className="w-10 h-10 text-white hover:text-yellow-300 transition-colors duration-300 pt-2" />
             </button>
 
-            {/* Dropdown Menu */}
+             Dropdown Menu 
             {isDropdownOpen && (
               <>
                 <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg z-50 w-40">
@@ -170,7 +169,7 @@ function App() {
                 )}
               </>
             )}
-          </div>
+          </div> */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-3xl focus:outline-none"
@@ -183,7 +182,7 @@ function App() {
         {isOpen && (
           <div className="md:hidden absolute right-0 top-full  bg-green-700 border-t border-white shadow-lg z-50">
             {user && user.role === "Admin" && (
-              <Link to="/admin" className="hover:underline">
+              <Link to="/adminpanel" className="hover:underline">
                 Admin Panel
               </Link>
             )}
@@ -193,7 +192,10 @@ function App() {
             >
               Academics
             </Link>
-            <Link to="/fee" className="hover:underline">
+            <Link
+              to="/fee"
+              className="hover:underline block px-6 py-3 hover:bg-green-600 border-b border-white"
+            >
               Fee Structure
             </Link>
             <Link

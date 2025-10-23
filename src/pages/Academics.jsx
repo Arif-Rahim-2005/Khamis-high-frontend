@@ -170,75 +170,84 @@ const filteredSelections = selections.filter(
         </div>
 
         {/* Subject Selections */}
+        {/* Grouped Subject Selections */}
         <div>
           <h3 className="text-xl font-semibold mb-3 text-green-700">
             Available Subject Selections
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {filteredSelections.length > 0 ? (
-              filteredSelections.map((sel) => {
-                const colorClasses = {
-                  green: {
-                    bg: "bg-green-50",
-                    text: "text-green-700",
-                    border: "border-green-700",
-                  },
-                  amber: {
-                    bg: "bg-amber-50",
-                    text: "text-amber-700",
-                    border: "border-amber-700",
-                  },
-                  blue: {
-                    bg: "bg-blue-50",
-                    text: "text-blue-700",
-                    border: "border-blue-700",
-                  },
-                  gray: {
-                    bg: "bg-gray-50",
-                    text: "text-gray-700",
-                    border: "border-gray-700",
-                  },
-                };
 
-                const color = getDeptColor(sel.department?.name);
-                const classes = colorClasses[color] || colorClasses.gray;
+          {(() => {
+            // 1️⃣ Group selections by department name
+            const grouped = filteredSelections.reduce((acc, sel) => {
+              const deptName = sel.department?.name || "Unassigned";
+              if (!acc[deptName]) acc[deptName] = [];
+              acc[deptName].push(sel);
+              return acc;
+            }, {});
 
-                return (
-                  <div key={sel.id}>
-                    <h3
-                      className={`text-xl font-semibold mb-3 ${classes.text} `}
-                    >
-                      {sel.department.name}
-                    </h3>
-                    {(() => {
-                      const color = getDeptColor(sel.department?.name);
-                      return (
-                        <div
-                          className={`border rounded-md p-4 shadow-sm ${classes.bg}`}
-                        >
-                          <h4 className={`font-bold ${classes.text}`}>
-                            {sel.name}
-                          </h4>
-                          <h4 className={`font-bold ${classes.text}`}>
+            // 2️⃣ Define colors
+            const colorClasses = {
+              green: {
+                bg: "bg-green-50",
+                text: "text-green-700",
+                border: "border-green-700",
+              },
+              amber: {
+                bg: "bg-amber-50",
+                text: "text-amber-700",
+                border: "border-amber-700",
+              },
+              blue: {
+                bg: "bg-blue-50",
+                text: "text-blue-700",
+                border: "border-blue-700",
+              },
+              gray: {
+                bg: "bg-gray-50",
+                text: "text-gray-700",
+                border: "border-gray-700",
+              },
+            };
+
+            // 3️⃣ Render grouped selections
+            return Object.entries(grouped).map(([deptName, selections]) => {
+              const color = getDeptColor(deptName);
+              const classes = colorClasses[color] || colorClasses.gray;
+
+              return (
+                <div key={deptName} className="mb-6">
+                  <h3
+                    className={`text-2xl font-semibold mb-3 ${classes.text} border-b-2 ${classes.border}`}
+                  >
+                    {deptName} 
+                  </h3>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {selections.map((sel) => (
+                      <div
+                        key={sel.id}
+                        className={`border rounded-md p-4 shadow-sm ${classes.bg}`}
+                      >
+                        <h4 className={`font-bold ${classes.text}`}>
+                          {sel.name}
+                        </h4>
+                        {sel.track && (
+                          <h5 className={`font-semibold ${classes.text}`}>
                             {sel.track.name}
-                          </h4>
-                          <p className="text-gray-700 text-sm mt-1">
-                            {Array.isArray(sel.subjects)
-                              ? sel.subjects.join(", ")
-                              : sel.subjects}
-                          </p>
-                        </div>
-                      );
-                    })()}
+                          </h5>
+                        )}
+                        <p className="text-gray-700 text-sm mt-1">
+                          {Array.isArray(sel.subjects)
+                            ? sel.subjects.join(", ")
+                            : sel.subjects}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                );
-              })
-            ) : (
-              <p className="text-gray-500 italic col-span-full">
-                No selections found.
-              </p>
-            )}
-          </div>
+                </div>
+              );
+            });
+          })()}
         </div>
       </div>
       <Footer />

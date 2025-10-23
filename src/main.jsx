@@ -10,6 +10,7 @@ import Academics from './pages/Academics.jsx'
 import AdminPage from './pages/Admin.jsx'
 import ProtectedAdminRoute from "./components/protectedAdminroute.jsx";
 import FeeStructure from './pages/FeeStructure.jsx'
+import SecurityPage from './pages/SecurityPage.jsx'
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -17,8 +18,9 @@ const router = createBrowserRouter([
   { path: "/academics", element: <Academics /> },
   { path: "/clubs", element: <Clubs /> },
   { path: "/fee", element: <FeeStructure /> },
+  { path: "/admin", element: <SecurityPage /> },
   {
-    path: "/admin",
+    path: "/adminpanel",
     element: (
       <ProtectedAdminRoute>
         <AdminPage />
