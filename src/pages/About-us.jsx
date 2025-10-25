@@ -18,6 +18,10 @@ export default function AboutUs() {
       try {
         const res = await axios.get(`${BASE_URL}/about/images`);
         setImages(res.data.images);
+        console.log("Fetched image data:", res.data.images);
+        res.data.images.forEach((img, i) => {
+          console.log(`Image ${i + 1} URL:`, img.filepath);
+        });
       } catch (err) {
         console.error("Error loading images:", err);
         alert("⚠️ Failed to load images.");
@@ -142,7 +146,7 @@ export default function AboutUs() {
           {images?.map((img, i) => (
             <div key={i} className="relative">
               <img
-                src={`${BASE_URL}${img.filepath || img}`}
+                src={`${img.filepath || img}`}
                 alt={`About ${i}`}
                 className="rounded-lg shadow-md w-full object-cover"
               />

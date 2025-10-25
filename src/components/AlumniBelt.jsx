@@ -10,6 +10,7 @@ export default function AlumniBelt() {
       .get(`${BASE_URL}/alumni`)
       .then((res) => setAlumni(res.data.alumni || []))
       .catch((err) => console.error("Error fetching alumni:", err));
+    console.log(alumni);
   }, []);
 
   return (
@@ -24,15 +25,18 @@ export default function AlumniBelt() {
           {alumni.concat(alumni).map((a, i) => (
             <div key={i} className="flex flex-col items-center flex-shrink-0 ">
               <img
-                src={`${BASE_URL}${a.image_path}`}
+                src={`${a.image_path}`}
                 alt={a.name}
                 className="w-20 h-20 md:w-28 md:h-28 rounded-full object-cover border-4 border-white shadow-md"
               />
-                  <p className="text-3xl mt-2 text-black font-serif">{a.name}</p>
-                  <p className="text-xl mt-2 text-black font-sans">{a.current_title}</p>
-                  <p className="text-xl mt-2 text-black font-sans">{a.year_of_completion}</p>
-                  <p className="text-xl mt-2 text-black font-sans">{a.comment}</p>
-
+              <p className="text-3xl mt-2 text-black font-serif">{a.name}</p>
+              <p className="text-xl mt-2 text-black font-sans">
+                {a.current_title}
+              </p>
+              <p className="text-xl mt-2 text-black font-sans">
+                {a.year_of_completion}
+              </p>
+              <p className="text-xl mt-2 text-black font-sans">{a.comment}</p>
             </div>
           ))}
         </div>

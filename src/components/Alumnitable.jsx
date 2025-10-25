@@ -228,7 +228,7 @@ export default function AlumniManager() {
                   <td className="p-2 border text-center">
                     {item.image_path ? (
                       <img
-                        src={`${BASE_URL}${item.image_path}`}
+                        src={`${item.image_path}`}
                         alt={item.name}
                         className="w-12 h-12 rounded-full object-cover mx-auto"
                       />
