@@ -58,7 +58,7 @@ const AdminHeader = () => {
       {/* Desktop Links */}
       <div className="hidden md:flex gap-8 text-lg font-light items-center">
         {user && user.role === "Admin" && (
-          <Link to="/admin" className="hover:underline">
+          <Link to="/adminpanel" className="hover:underline">
             Admin Panel
           </Link>
         )}
