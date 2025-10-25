@@ -32,7 +32,7 @@ export default function FeeStructure() {
       const data = await res.json();
       if (res.ok || res.status === 200) {
         // Append timestamp to avoid iframe caching
-        setPdfUrl(`${BASE_URL}${data.file_path}?t=${new Date().getTime()}`);
+        setPdfUrl(`${data.file_url}`);
       } else {
         setPdfUrl("");
       }
