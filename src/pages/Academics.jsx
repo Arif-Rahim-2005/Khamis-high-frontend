@@ -4,10 +4,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 const getDeptColor = (deptName = "") => {
   const name = deptName.toLowerCase();
-  if (name.includes("sciences") || name.includes("stem")) return "green";
-  if (name.includes("human") || name.includes("social sciences")) return "amber";
+
+  if (name.includes("stem")) return "green";
+  if (name.includes("social sciences") || name.includes("human"))
+    return "amber";
   if (name.includes("technical") || name.includes("art")) return "blue";
-  return "gray"; // fallback
+  if (name.includes("sciences")) return "green"; // fallback for general sciences
+
+  return "gray";
 };
 const colorClasses = {
   green: {
