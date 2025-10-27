@@ -17,17 +17,17 @@ import {
 } from "swiper/modules";
 import { useState, useEffect } from "react";
 import Footer from "./components/Footer.jsx";
-// import { User } from "lucide-react";
-// import LoginModal from "./components/loginform.jsx";
-// import SignUpModal from "./components/Signupform.jsx";
+import { User } from "lucide-react";
+import LoginModal from "./components/loginform.jsx";
+import SignUpModal from "./components/Signupform.jsx";
 import AdminBelt from "./components/AlumniBelt.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // const [showLogin, setShowLogin] = useState(false);
-  // const [showSignup, setShowSignup] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -96,7 +96,7 @@ function App() {
             Clubs and Societies
           </Link>
           {/* Profile Icon */}
-          {/* <div className="relative">
+          <div className="relative">
             <button
               onClick={() => setIsDropdownOpen((prev) => !prev)}
               className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
@@ -129,13 +129,13 @@ function App() {
                 )}
               </>
             )}
-          </div> */}
+          </div>
         </div>
 
         {/* Mobile Button */}
         <div className="flex items-center gap-3 md:hidden">
           {/* Profile Icon */}
-          {/* <div className="relative md:hidden">
+          <div className="relative md:hidden">
             <button
               onClick={() => setIsDropdownOpen((prev) => !prev)}
               className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
@@ -169,7 +169,7 @@ function App() {
                 )}
               </>
             )}
-          </div> */}
+          </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-3xl focus:outline-none"
