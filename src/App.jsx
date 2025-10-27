@@ -293,7 +293,7 @@ function App() {
           <div>
             {/* Info Cards Section */}
             <section className=" py-16 px-6 md:px-12 text-lg">
-              <div className="grid grid-cols-3 gap-20 max-w-6xl mx-auto ">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-20 max-w-6xl mx-auto ">
                 {/* Card 1 */}
                 <div className="flex flex-col md:flex-col items-center shadow-lg overflow-hidden max-h-fit transition-all hover:scale-[1.02] duration-300 ease-in-out">
                   <div className="flex flex-col md:flex-column items-center shadow-lg overflow-hidden">
