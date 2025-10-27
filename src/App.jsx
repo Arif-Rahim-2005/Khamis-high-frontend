@@ -103,7 +103,7 @@ function App() {
             >
               <User className="w-8 h-8 text-white hover:text-yellow-300 transition-colors duration-300 pt-2" />
             </button>
-          // dropdown menu
+          {/* dropdown menu */}
             {isDropdownOpen && (
               <>
                 <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg z-50 w-40">
