@@ -11,7 +11,7 @@ import AdminPage from './pages/Admin.jsx'
 import ProtectedAdminRoute from "./components/protectedAdminroute.jsx";
 import FeeStructure from './pages/FeeStructure.jsx'
 import SecurityPage from './pages/SecurityPage.jsx'
-//test commit
+//test commits
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/contacts", element: <Contacts /> },
