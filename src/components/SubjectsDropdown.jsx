@@ -206,7 +206,7 @@ export default function SubjectsDropdown() {
             ))}
           </select>
 
-          <select
+          {/* <select
             name="track_id"
             value={formData.track_id}
             onChange={handleChange}
@@ -218,7 +218,7 @@ export default function SubjectsDropdown() {
                 {trk.name}
               </option>
             ))}
-          </select>
+          </select> */}
         </div>
 
         <div className="mt-3 flex gap-3">
@@ -258,7 +258,7 @@ export default function SubjectsDropdown() {
               <th className="p-2 border">Name</th>
               <th className="p-2 border">System</th>
               <th className="p-2 border">Department</th>
-              <th className="p-2 border">Track</th>
+              {/* <th className="p-2 border">Track</th> */}
               <th className="p-2 border">Actions</th>
             </tr>
           </thead>
@@ -269,7 +269,7 @@ export default function SubjectsDropdown() {
                   <td className="p-2 border">{subject.name}</td>
                   <td className="p-2 border">{subject.system?.name || "-"}</td>
                   <td className="p-2 border">{subject.department?.name}</td>
-                  <td className="p-2 border">{subject.track?.name || "-"}</td>
+                  {/* <td className="p-2 border">{subject.track?.name || "-"}</td> */}
                   <td className="p-2 border text-center">
                     <button
                       onClick={() => startEdit(subject)}

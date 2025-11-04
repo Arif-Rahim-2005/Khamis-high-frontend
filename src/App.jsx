@@ -96,15 +96,15 @@ function App() {
             Clubs and Societies
           </Link>
           {/* Profile Icon */}
-          <div className="relative">
+          {/* <div className="relative">
             <button
               onClick={() => setIsDropdownOpen((prev) => !prev)}
               className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
             >
               <User className="w-8 h-8 text-white hover:text-yellow-300 transition-colors duration-300 pt-2" />
-            </button>
+            </button> */}
           {/* dropdown menu */}
-            {isDropdownOpen && (
+            {/* {isDropdownOpen && (
               <>
                 <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg z-50 w-40">
                   <button
@@ -129,22 +129,22 @@ function App() {
                 )}
               </>
             )}
-          </div>
+          </div> */}
         </div>
 
         {/* Mobile Button */}
         <div className="flex items-center gap-3 md:hidden">
           {/* Profile Icon */}
-          <div className="relative md:hidden">
+          {/* <div className="relative md:hidden">
             <button
               onClick={() => setIsDropdownOpen((prev) => !prev)}
               className="ml-2 hover:scale-110 transition-transform duration-300 focus:outline-none"
             >
               <User className="w-10 h-10 text-white hover:text-yellow-300 transition-colors duration-300 pt-2" />
-            </button>
+            </button> */}
 
              {/* Dropdown Menu  */}
-            {isDropdownOpen && (
+            {/* {isDropdownOpen && (
               <>
                 <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg z-50 w-40">
                   <button
@@ -169,7 +169,7 @@ function App() {
                 )}
               </>
             )}
-          </div>
+          </div> */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-3xl focus:outline-none"

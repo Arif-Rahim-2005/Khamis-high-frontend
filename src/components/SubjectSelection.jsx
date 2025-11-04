@@ -84,8 +84,8 @@ export default function SubjectSelectionTable() {
     if (
       !newSelection.name.trim() ||
       !newSelection.subjects.trim() ||
-      !newSelection.system_id ||
-      !newSelection.department_id
+      !newSelection.system_id 
+      // !newSelection.department_id
     ) {
       alert("⚠️ Please fill in all required fields.");
       return;
@@ -134,8 +134,8 @@ console.log(payload)
     if (
       !editSelection.name.trim() ||
       !editSelection.subjects.trim() ||
-      !editSelection.system_id ||
-      !editSelection.department_id
+      !editSelection.system_id 
+      // !editSelection.department_id
     ) {
       alert("⚠️ Please fill in all required fields.");
       return;
@@ -289,7 +289,7 @@ console.log(payload)
                   })
             }
             className="border rounded p-2 w-full"
-            required
+            // required
           >
             <option value="">Select Department</option>
             {Array.isArray(departments) &&
