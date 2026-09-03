@@ -1,4 +1,4 @@
-import AdminHeader from "../components/AdminHeader";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import AdminSystemsDropdown from "../components/AdminSystemdropdown";
 import AdminDepartmentsDropdown from "../components/departmentsDropdown";
@@ -13,7 +13,7 @@ const AdminPage = () => {
     return (
       <>
         <div className="bg-gradient-to-b from-white to-gray-200">
-          <AdminHeader />
+          <Header />
           <AdminUsersPanel />
           <AdminSystemsDropdown />
           <AdminDepartmentsDropdown />
