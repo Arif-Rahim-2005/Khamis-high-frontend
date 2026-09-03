@@ -162,7 +162,7 @@ const Header = () => {
           {user && user.role === "Admin" && (
             <Link
               to="/adminpanel"
-              className="block px-6 py-3 hover:bg-green-600 border-b border-white"
+              className="md:hidden absolute right-0 top-full  bg-green-700 border-t border-white shadow-lg z-50"
             >
               Admin Panel
             </Link>
