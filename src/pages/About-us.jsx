@@ -119,6 +119,7 @@ export default function AboutUs() {
     setData({ ...data, paragraph: newParagraph });
     setEditing(false);
     alert("✅ About Us text updated!");
+    console.log("Updated About Us paragraph:", newParagraph);
   };
 
   return (
