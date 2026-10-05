@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://khamis-high.vercel.app/sitemap.xml
